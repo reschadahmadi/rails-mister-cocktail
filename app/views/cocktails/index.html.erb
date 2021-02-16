@@ -1,6 +1,6 @@
-<section class="jumbotron text-center">
+<section class="jumbotron text-center main-img">
   <div class="container">
-    <h1 class="jumbotron-heading">Cocktails</h1>
+    <h1 class="jumbotron-heading text-white">Cocktails</h1>
     <p class="lead text-muted">A cocktail is a mixed drink typically made with a distilled liquor (such as arrack, brandy, cachaça, gin, rum, tequila, vodka, or whiskey) as its base ingredient that is then mixed with other ingredients or garnishments. Sweetened liqueurs, wine, or beer may also serve as the base or be added.</p>
     <p>
       <a href="#" class="btn btn-primary my-2">Main call to action</a>
@@ -22,9 +22,8 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <%= link_to 'View', cocktail_path(cocktail), class: 'btn btn-sm btn-outline-secondary' %>
-                    <%= link_to 'Delete', cocktail_path(cocktail), method: :delete, class: 'btn btn-sm btn-outline-secondary' %>
+                    <%= link_to 'Delete', cocktail_path(cocktail), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-secondary' %>
                   </div>
-                  <small class="text-muted">9 mins</small>
                 </div>
               </div>
             </div>
