@@ -1,9 +1,9 @@
 class CocktailsController < ApplicationController
   before_action :set_cocktail, only: [:create]
-  before_action :find_cocktail, only: %i(show destroy)
+  before_action :find_cocktail, only: %i(show edit update destroy)
 
   def index
-    @cocktails = Cocktail.all
+    @cocktails = Cocktail.all.order('updated_at desc')
   end
 
   def create
@@ -21,6 +21,18 @@ class CocktailsController < ApplicationController
   def new
     @cocktail = Cocktail.new
     @cocktail.doses.build
+  end
+
+  def update
+    @cocktail.assign_attributes(cocktail_params)
+
+    if @cocktail.save
+      flash[:notice] = t(:successfully_updated)
+    else
+      flash[:notice] = @cocktail.errors.full_messages.join(', ')
+    end
+
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy

@@ -1,6 +1,6 @@
-<% content_for :page_actions do %>
-  <%= link_to t(:back_to_resource_list, resource: Cocktail.model_name.human), cocktails_path, icon: 'plus', class: 'btn-primary', icon: 'arrow-left' %>
-<% end %>
+<div class="pt-5 pl-5">
+  <%= link_to t(:back_to_resource_list, resource: Cocktail.model_name.human), cocktails_path, class: 'btn btn-primary btn-sm' %>
+</div>
 
 <div data-hook="cocktail_form_wrapper" class='p-5'>
   <%= simple_form_for @cocktail do |f| %>
@@ -15,6 +15,16 @@
     <div class="row">
       <div class="col-12 col-lg-8">
         <div class="form-group">
+          <%= f.label :cover_image %>
+          <%= f.file_field :cover_image, required: true, direct_upload: true %>
+        </div>
+      </div>
+    </div>
+
+  <% if params[:action] == 'new' %>
+    <div class="row">
+      <div class="col-12 col-lg-8">
+        <div class="form-group">
           <%= f.simple_fields_for :doses do |dose| %>
             <%= dose.association :ingredient, as: :select %>
             <%= dose.label :description, class: 'form-label' %>
@@ -23,6 +33,7 @@
         </div>
       </div>
     </div>
+  <% end %>
 
     <%= f.button :submit, class: 'btn btn-primary' %>
   <% end %>

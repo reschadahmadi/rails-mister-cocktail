@@ -1,10 +1,9 @@
 <section class="jumbotron text-center main-img">
   <div class="container">
     <h1 class="jumbotron-heading text-white">Cocktails</h1>
-    <p class="lead text-muted">A cocktail is a mixed drink typically made with a distilled liquor (such as arrack, brandy, cachaça, gin, rum, tequila, vodka, or whiskey) as its base ingredient that is then mixed with other ingredients or garnishments. Sweetened liqueurs, wine, or beer may also serve as the base or be added.</p>
+    <p class="lead text-white">A cocktail is a mixed drink typically made with a distilled liquor (such as arrack, brandy, cachaça, gin, rum, tequila, vodka, or whiskey) as its base ingredient that is then mixed with other ingredients or garnishments. Sweetened liqueurs, wine, or beer may also serve as the base or be added.</p>
     <p>
-      <a href="#" class="btn btn-primary my-2">Main call to action</a>
-      <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+      <%= link_to 'Add Cocktail', new_cocktail_path, class: "btn btn-primary my-2" %>
     </p>
   </div>
 </section>
@@ -16,13 +15,15 @@
         <% @cocktails.each do |cocktail| %>
           <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-              <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+              <% if cocktail.cover_image.attached? %>
+                <%= image_tag url_for(cocktail.cover_image), class: 'card-img-top' %>
+              <% end %>
               <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><%= cocktail.name %></p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <%= link_to 'View', cocktail_path(cocktail), class: 'btn btn-sm btn-outline-secondary' %>
-                    <%= link_to 'Delete', cocktail_path(cocktail), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-secondary' %>
+                    <%= link_to 'Edit', edit_cocktail_path(cocktail), class: 'btn btn-sm btn-outline-secondary' %>
                   </div>
                 </div>
               </div>

@@ -1,9 +1,15 @@
+<section class="jumbotron text-center" style="background-image: url(<%= url_for(@cocktail.cover_image) %>); background-position: center; background-size: cover;">
+  <div class="container">
+    <h1 class="jumbotron-heading text-white"><%= @cocktail.name %></h1>
+    <p>
+      <%= link_to '', edit_cocktail_path(@cocktail), class: 'fas fa-edit fa-3x' %>
+      <%= link_to '', cocktail_path(@cocktail), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'fa fa-trash fa-3x text-danger' %>      
+    </p>
+  </div>
+</section>
+
 <div class="card mb-3">
-  <img src="..." class="card-img-top" alt="...">
   <div class="card-body">
-    <h2 class="card-title"><%= @cocktail.name %></h2>
-
-
     <div class='row'>
       <div class='col-6 col-lg-6'>
         <h5><%= t(:ingredient_list) %></h5>
@@ -11,7 +17,7 @@
           <% @cocktail.doses.includes(:ingredient).each do |dose| %>
             <li>
               <strong><%= dose.ingredient.name %></strong>: <%= dose.description %>
-              <%= link_to(dose_path(dose), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'fa fa-trash') do %>
+              <%= link_to(dose_path(dose), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'fa fa-trash text-danger') do %>
               <% end %>
             </li>
           <% end %>
