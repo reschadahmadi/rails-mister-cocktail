@@ -1,0 +1,36 @@
+<div class="card mb-3">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h2 class="card-title"><%= @cocktail.name %></h2>
+
+
+    <div class='row'>
+      <div class='col-6 col-lg-6'>
+        <h5><%= t(:ingredient_list) %></h5>
+        <ul>
+          <% @cocktail.doses.includes(:ingredient).each do |dose| %>
+            <li>
+              <strong><%= dose.ingredient.name %></strong>: <%= dose.description %>
+              <%= link_to(dose_path(dose), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'fa fa-trash') do %>
+              <% end %>
+            </li>
+          <% end %>
+        <ul>
+      </div>
+      <div class='col-6 col-lg-6'>
+        <h5><%= t(:add_ingredients) %></h5>
+        <%= simple_form_for(@cocktail.doses.build, as: :dose, method: :post, url: cocktail_doses_path(@cocktail)) do |dose| %>
+          <%= dose.association :ingredient, as: :select %>
+          <%= dose.label :description, class: 'form-label' %>
+          <%= dose.text_area :description, class: 'form-control' %>
+          <%= dose.hidden_field :cocktail_id %>
+
+          <%= dose.button :submit, 'Add Ingredient', class: 'btn btn-primary mt-2' %>
+      	<% end %>
+      </div>
+    </div>
+    <div class="pt-5">
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    </div>
+  </div>
+</div>
