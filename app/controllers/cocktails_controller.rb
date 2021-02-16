@@ -1,6 +1,6 @@
 class CocktailsController < ApplicationController
   before_action :set_cocktail, only: [:create]
-
+  before_action :find_cocktail, only: %i(show destroy)
 
   def index
     @cocktails = Cocktail.all
@@ -8,10 +8,13 @@ class CocktailsController < ApplicationController
 
   def create
     @cocktail.assign_attributes(cocktail_params)
+
     if @cocktail.save
       flash[:notice] = t(:successfully_created)
+      redirect_to cocktails_path
     else
-      flash[:error] = @cocktail.errors.full_messages.join(', ')
+      flash[:notice] = @cocktail.errors.full_messages.join(', ')
+      redirect_back(fallback_location: root_path)
     end
   end
 
@@ -20,15 +23,24 @@ class CocktailsController < ApplicationController
     @cocktail.doses.build
   end
 
-  def show
-    @cocktail = Cocktail.find_by(params[:id])
-  end
+  def destroy
+    if @cocktail.destroy
+      flash[:notice] = t(:successfully_destroyed)
+    else
+      flash[:notice] = @cocktail.errors.full_messages.join(', ')
+    end
 
+    redirect_to cocktails_path
+  end
 
   private
 
   def cocktail_params
     params.require(:cocktail).permit!
+  end
+
+  def find_cocktail
+    @cocktail = Cocktail.find_by(id: params[:id])
   end
 
   def set_cocktail

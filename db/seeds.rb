@@ -6,13 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-cocktails = %w(Mojito CottonCandy Blackberry Spritz Beer Margarita Absolute-Swag Old-Fastioned)
 ingredients = %w(Mint Vodka Rhum Orange-Juice Tomato-Juice Lemon Ice)
-
-
-cocktails.each do |cocktail|
-  Cocktail.create(name: cocktail)
-end
 
 ingredients.each do |ingredient|
   Ingredient.create(name: ingredient)

@@ -2,7 +2,7 @@
   <%= link_to t(:back_to_resource_list, resource: Cocktail.model_name.human), cocktails_path, icon: 'plus', class: 'btn-primary', icon: 'arrow-left' %>
 <% end %>
 
-<div data-hook="cocktail_form_wrapper">
+<div data-hook="cocktail_form_wrapper" class='p-5'>
   <%= simple_form_for @cocktail do |f| %>
     <div class="row">
       <div class="col-12 col-lg-8">
@@ -17,11 +17,13 @@
         <div class="form-group">
           <%= f.simple_fields_for :doses do |dose| %>
             <%= dose.association :ingredient, as: :select %>
+            <%= dose.label :description, class: 'form-label' %>
+            <%= dose.text_area :description, class: 'form-control' %>
           <% end %>
         </div>
       </div>
     </div>
 
-    <%= f.button :submit %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
   <% end %>
 </div>
