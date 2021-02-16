@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_13_154629) do
+ActiveRecord::Schema.define(version: 2021_02_13_153502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,18 +23,13 @@ ActiveRecord::Schema.define(version: 2021_02_13_154629) do
 
   create_table "doses", force: :cascade do |t|
     t.text "description"
+    t.integer "cocktail_id"
     t.integer "ingredient_id"
-    t.integer "dose_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["dose_id"], name: "index_doses_on_dose_id"
+    t.index ["cocktail_id", "ingredient_id"], name: "index_doses_on_cocktail_id_and_ingredient_id", unique: true
+    t.index ["cocktail_id"], name: "index_doses_on_cocktail_id"
     t.index ["ingredient_id"], name: "index_doses_on_ingredient_id"
-  end
-
-  create_table "ingedients", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "ingredients", force: :cascade do |t|
